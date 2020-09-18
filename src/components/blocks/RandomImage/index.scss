@@ -1,7 +1,7 @@
-$animation-duration: 5000ms;
-$rotations: 10;
+$animation-duration: 3000ms;
+$rotations: 2;
 
-@mixin animation-mixin($name, $turnRatio) {
+@mixin animation-mixin($name, $turnRatio: 1) {
   @keyframes #{$name} {
     0% {
       filter: blur(0px);
@@ -11,13 +11,14 @@ $rotations: 10;
     
     50% {
       filter: blur(10px);
-      transform: rotate(#{$turnRatio * $rotations * .5}turn) scale(1.75);
+      transform: rotate(#{$rotations * 2}turn) scale(1.75);
+      opacity: .5;
     }
     
     100% {
       filter: blur(10px);
-      transform: rotate(#{$turnRatio * $rotations}turn) scale(1);
-      opacity: .45;
+      transform: rotate(#{$rotations * 4}turn) scale(1);
+      opacity: 1;
     }
   }
 }
@@ -40,7 +41,7 @@ $rotations: 10;
     
     &.animating {
       @include animation-mixin(spinBlur, $rotations);
-      animation: spinBlur $animation-duration ease-out;
+      animation: spinBlur $animation-duration linear forwards;
       position: absolute;
       opacity: .75;
       left: 0;
@@ -51,13 +52,13 @@ $rotations: 10;
       }
       
       &[data-image-index="1"] {
-        @include animation-mixin(spinBlur2, 0.5);
-        animation: spinBlur2 $animation-duration ease-out;
+        @include animation-mixin(spinBlur2, $rotations * 0.5);
+        animation: spinBlur2 $animation-duration linear forwards;
       }
       
       &[data-image-index="2"] {
-        @include animation-mixin(spinBlur3, 0.65);
-        animation: spinBlur3 $animation-duration ease-out;
+        @include animation-mixin(spinBlur3, $rotations * 0.65);
+        animation: spinBlur3 $animation-duration ease;
       }
     }
   }

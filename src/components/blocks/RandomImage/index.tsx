@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useSound from 'use-sound';
-
+import mp3Sound from '../../../public/sounds/whirl.mp3';
 
 import './index.scss';
 
@@ -12,14 +12,13 @@ interface Image {
 interface RandomImageBlockProps {
   images: Image[],
 }
-const sound = 'http://localhost:3000/sounds/rise-climb-audio.mp3';
 
 const baseClass = 'random-image-block';
 
 export const RandomImageBlock: React.FC<RandomImageBlockProps> = (props) => {
   const { images } = props;
   
-  const [play] = useSound(sound, { playbackRate: 0.75, volume: 1 });
+  const [play] = useSound(mp3Sound, { playbackRate: 0.5, volume: 1 });
 
   const [randomImage, setRandomImage] = useState<Image>(images[0]);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
@@ -32,7 +31,7 @@ export const RandomImageBlock: React.FC<RandomImageBlockProps> = (props) => {
       const randomIndex = Math.round(Math.random() * (images.length - 1));
       setRandomImage(images[randomIndex]);
       setIsAnimating(false);
-    }, 5000);
+    }, 3000);
   }
 
   return (
